@@ -1360,6 +1360,10 @@ struct CAFFE2_API ClassType : public NamedType {
     return qualname();
   }
 
+  void registerMethod(Function* method) {
+    methods_.push_back(method);
+  }
+
   TypePtr getAttribute(const std::string& name) const {
     AT_ASSERT(attributeNames_.size() == attributeTypes_.size());
     size_t pos = 0;
@@ -1389,7 +1393,7 @@ struct CAFFE2_API ClassType : public NamedType {
   }
 
   Function* getMethod(const std::string& name) const;
-  std::vector<Function*> methods() const;
+  const std::vector<Function*>& methods() const;
 
   std::shared_ptr<CompilationUnit> compilation_unit();
   std::shared_ptr<const CompilationUnit> compilation_unit() const;
@@ -1473,5 +1477,8 @@ struct CAFFE2_API ClassType : public NamedType {
   // if present, this class inherits from torch.nn.Module
   // and these are the indices of the attributes which are parameters
   std::shared_ptr<std::vector<bool>> parameterSlots_;
+
+  // List of methods associated with this class.
+  std::vector<Function*> methods_;
 };
 } // namespace c10
