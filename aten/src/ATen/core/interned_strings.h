@@ -150,6 +150,7 @@ namespace c10 {
   _(aten, bin)                     \
   _(prim, unchecked_unwrap_optional)\
   _(aten, __contains__)            \
+  _(prim, GraphHolder)             \
   FORALL_ATEN_BASE_SYMBOLS(_)      \
   _(onnx, Add)                     \
   _(onnx, Concat)                  \

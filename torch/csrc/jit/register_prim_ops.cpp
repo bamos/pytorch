@@ -240,6 +240,15 @@ RegisterOperators reg(
            };
          }),
      Operator(
+         "prim::GraphHolder() -> ()",
+         [](const Node* /* node */) {
+           return [](Stack& stack) {
+             // Returns an int so that we have an easy way to do graph traversal
+             push(stack, 1);
+             return 0;
+           };
+         }),
+     Operator(
          "prim::rangelist(int n) -> int[]",
          [](Stack& stack) {
            int64_t n;
@@ -2068,7 +2077,7 @@ RegisterOperators reg2({
         "prim::min(int[] x) -> int",
         [](Stack& stack) {
           c10::List<int64_t> int_list = pop(stack).toIntList();
-          int64_t min_element = std::numeric_limits<int64_t>::max(); 
+          int64_t min_element = std::numeric_limits<int64_t>::max();
 
           for(int64_t ele: int_list) {
             if(ele < min_element) {
